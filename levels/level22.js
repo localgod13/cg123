@@ -8,6 +8,16 @@ export function runLevel22(game) {
         existingPlayer.remove();
     }
 
+    // Stop any existing music and play goblin town music
+    game.soundManager.stopMusic(false);
+    const goblinTownMusic = game.soundManager.sounds.get('goblintown');
+    if (goblinTownMusic) {
+        goblinTownMusic.loop = true;
+        goblinTownMusic.volume = 0.5;
+        goblinTownMusic.play().catch(() => {});
+        game.soundManager.currentMusic = goblinTownMusic;
+    }
+
     // Remove any existing Back to Town button
     document.querySelectorAll('button').forEach(btn => {
         if (btn.textContent === 'Back to Town') {

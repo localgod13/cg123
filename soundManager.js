@@ -65,6 +65,7 @@ export class SoundManager {
             'closed1': './assets/Audio/closed1.mp3',
             'closed2': './assets/Audio/closed2.mp3',
             'closed3': './assets/Audio/closed3.mp3',
+            'goblintown': './assets/Audio/goblintown.mp3',
             'mageintro': './assets/Audio/mageintro.wav',
             'warriorintro': './assets/Audio/warriorintro.mp3',
             'level6nar': './assets/Audio/level6nar.mp3',
