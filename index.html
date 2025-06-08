@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Class selection will be inserted here -->
+        <div class="game-scene" style="display: none;">
+            <!-- Playfield -->
+            <div class="playfield">
+                <!-- Player side -->
+                <div class="player-side">
+                    <div class="player-character"></div>
+                </div>
+                <!-- Enemy side -->
+                <div class="enemy-side">
+                    <div class="enemy-character"></div>
+                </div>
+            </div>
+            
+            <!-- Game area -->
+            <div class="game-area">
+                <!-- Draw pile -->
+                <div class="pile draw-pile">
+                    <div class="pile-label">Draw Pile</div>
+                    <div class="pile-count">0</div>
+                </div>
+
+                <!-- Player's hand -->
+                <div class="player-hand">
+                    <!-- Cards will be added here dynamically -->
+                </div>
+
+                <!-- Discard pile -->
+                <div class="pile discard-pile">
+                    <div class="pile-label">Discard Pile</div>
+                    <div class="pile-count">0</div>
+                </div>
+            </div>
+
+            <!-- Game controls -->
+            <div class="game-controls">
+                <button class="end-turn-btn">End Turn</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="cardManager.js"></script>
+    <script type="module" src="enemy.js"></script>
+    <script type="module" src="executioner.js"></script>
+    <script type="module" src="game.js"></script>
+    <script type="module" src="debugMenu.js"></script>
+    <script type="module">
+        // Initialize the game
+        import { Preloader } from './preloader.js';
+        import { ClassSelection } from './classSelection.js';
+        import { Game } from './game.js';
+
+        let gameInstance = null;
+        let classSelection = null;
+        let retryCount = 0;
+        const MAX_RETRIES = 3;
+
+        async function initializeGame() {
+            try {
+                // Only create preloader and load assets if they haven't been loaded
+                if (!window.loadedAssets) {
+                    const preloader = new Preloader();
+                    window.loadedAssets = await preloader.loadAllAssets();
+                }
+                
+                // Only create class selection if it doesn't exist
+                if (!classSelection) {
+                    classSelection = new ClassSelection(window.loadedAssets);
+                    const gameContainer = document.getElementById('game-container');
+                    gameContainer.appendChild(classSelection.createClassSelectionScene());
+                }
+                
+                // Only create game instance if it doesn't exist
+                if (!gameInstance) {
+                    gameInstance = new Game();
+                    gameInstance.loadedAssets = window.loadedAssets;
+                    window.game = gameInstance;
+                }
+            } catch (error) {
+                console.error('Failed to initialize game:', error);
+                if (retryCount < MAX_RETRIES) {
+                    retryCount++;
+                    console.log(`Retrying initialization (${retryCount}/${MAX_RETRIES})...`);
+                    setTimeout(initializeGame, 1000);
+                } else {
+                    console.error('Max retries reached. Please refresh the page.');
+                }
+            }
+        }
+
+        // Start initialization
+        initializeGame();
+
+        // Handle HMR updates
+        if (import.meta.hot) {
+            import.meta.hot.accept((newModule) => {
+                console.log('HMR update received');
+                
+                // Force a full reload for CSS changes
+                if (newModule && newModule.default && newModule.default.includes('styles.css')) {
+                    window.location.reload();
+                    return;
+                }
+
+                // Preserve game instance if it exists
+                if (gameInstance) {
+                    try {
+                        const currentGame = gameInstance;
+                        gameInstance = new newModule.Game();
+                        gameInstance.loadedAssets = window.loadedAssets;
+                        window.game = gameInstance;
+                        
+                        // Copy over essential game state
+                        gameInstance.currentLevel = currentGame.currentLevel;
+                        gameInstance.playerClass = currentGame.playerClass;
+                        gameInstance.playerDeck = currentGame.playerDeck;
+                        gameInstance.playerHealth = currentGame.playerHealth;
+                        gameInstance.playerDefense = currentGame.playerDefense;
+                        gameInstance.playerResource = currentGame.playerResource;
+                        gameInstance.maxResource = currentGame.maxResource;
+                        
+                        // Reinitialize with preserved state
+                        gameInstance.initialize(gameInstance.playerClass, gameInstance.playerDeck);
+                        gameInstance.levelManager.initializeLevel(gameInstance.currentLevel);
+                        
+                        // Force UI update
+                        gameInstance.updatePlayerHand(true);
+                        gameInstance.updatePileCounts();
+                        gameInstance.updateHealthBars();
+                    } catch (error) {
+                        console.error('Error during HMR update:', error);
+                        window.location.reload();
+                    }
+                } else {
+                    initializeGame();
+                }
+            });
+
+            // Handle HMR connection errors
+            import.meta.hot.on('vite:beforeUpdate', () => {
+                console.log('HMR update pending...');
+            });
+
+            import.meta.hot.on('vite:error', (err) => {
+                console.error('HMR error:', err);
+                window.location.reload();
+            });
+        }
+    </script>
+</body>
+</html> 
