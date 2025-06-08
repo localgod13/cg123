@@ -2,7 +2,7 @@ import { Enemy } from './enemy.js';
 
 export class GoblinKing extends Enemy {
     constructor(id, health, game) {
-        super(id, health, '/assets/Sprites/Goblin King/gkidle.png', game);
+        super(id, health, './assets/Sprites/Goblin King/gkidle.png', game);
         this.type = 'goblinKing';
         this.attackDamage = 15;
         this.defense = 5;
@@ -17,8 +17,8 @@ export class GoblinKing extends Enemy {
         this.verticalOffset = 100;
 
         // Attack animation properties
-        this.attackSpriteSheet = '/assets/Sprites/Goblin King/gkattack.png';
-        this.attack2SpriteSheet = '/assets/Sprites/Goblin King/gkattack2.png';
+        this.attackSpriteSheet = './assets/Sprites/Goblin King/gkattack.png';
+        this.attack2SpriteSheet = './assets/Sprites/Goblin King/gkattack2.png';
         this.attackFrameWidth = 200;  // 800/4 columns
         this.attackFrameHeight = 200; // 600/3 rows
         this.attackFrames = 10;       // First attack uses 10 frames
@@ -29,14 +29,14 @@ export class GoblinKing extends Enemy {
         this.attackCols = 4;          // Number of columns in attack sprite sheets
 
         // Hurt animation properties
-        this.hurtSpriteSheet = '/assets/Sprites/Goblin King/gkhurt.png';
+        this.hurtSpriteSheet = './assets/Sprites/Goblin King/gkhurt.png';
         this.hurtFrameWidth = 200;    // 400/2 columns
         this.hurtFrameHeight = 200;   // 400/2 rows
         this.hurtFrames = 4;          // 2x2 grid
         this.hurtTotalWidth = 400;    // Total width of hurt sprite sheet
 
         // Death animation properties
-        this.deathSpriteSheet = '/assets/Sprites/Goblin King/gkdeath.png';
+        this.deathSpriteSheet = './assets/Sprites/Goblin King/gkdeath.png';
         this.deathFrameWidth = 200;   // 800/4 columns
         this.deathFrameHeight = 200;  // 600/3 rows
         this.deathFrames = 11;        // Using first 11 frames
