@@ -8,7 +8,7 @@
 // Import enemy classes
 import { Enemy } from './enemy.js';
 import { Executioner } from './executioner.js';
-import { FlyingDemon } from './flyingDemon.js';
+import { FlyingDemon } from './FlyingDemon.js';
 import { Skeleton } from './skeleton.js';
 import { CardManager } from './cardManager.js';
 import { DebugMenu } from './debugMenu.js';

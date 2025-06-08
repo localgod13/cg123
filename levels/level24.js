@@ -1,5 +1,5 @@
 import { Goblin } from '../goblin.js';
-import { FlyingDemon } from '../flyingDemon.js';
+import { FlyingDemon } from '../FlyingDemon.js';
 
 export function runLevel24(game) {
     // Create player-side element if it doesn't exist

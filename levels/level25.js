@@ -1,5 +1,5 @@
 import { Goblin } from '../goblin.js';
-import { FlyingDemon } from '../flyingDemon.js';
+import { FlyingDemon } from '../FlyingDemon.js';
 import { GoblinKing } from '../goblinKing.js';
 
 let currentWave = 1;
