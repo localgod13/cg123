@@ -10,10 +10,10 @@ import { Enemy } from './enemy.js';
  */
 export class Goblin extends Enemy {
     constructor(id, health, game) {
-        super(id, health, './assets/Sprites/Goblin/gidle.png', game);
-        this.attackSpriteSheet = './assets/Sprites/Goblin/gattack.png';
-        this.hurtSpriteSheet = './assets/Sprites/Goblin/ghit.png';
-        this.deathSpriteSheet = './assets/Sprites/Goblin/gdeath.png';
+        super(id, health, '/assets/Sprites/Goblin/gidle.png', game);
+        this.attackSpriteSheet = '/assets/Sprites/Goblin/gattack.png';
+        this.hurtSpriteSheet = '/assets/Sprites/Goblin/ghit.png';
+        this.deathSpriteSheet = '/assets/Sprites/Goblin/gdeath.png';
         this.currentFrame = Math.floor(Math.random() * 4);
         this.totalFrames = 4;
         this.frameWidth = 150;
@@ -28,7 +28,7 @@ export class Goblin extends Enemy {
         this.attackTotalWidth = 1200; // Total width of sprite sheet
         this.hurtFrames = 4;
         this.deathFrames = 4;
-        this.runSpriteSheet = './assets/Sprites/Goblin/grun.png';
+        this.runSpriteSheet = '/assets/Sprites/Goblin/grun.png';
         this.runFrames = 8;
         this.attackCount = 0; // Track number of attacks in current sequence
     }
