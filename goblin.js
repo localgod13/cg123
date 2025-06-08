@@ -10,6 +10,7 @@ import { Enemy } from './enemy.js';
  */
 export class Goblin extends Enemy {
     constructor(id, health, game) {
+        console.log('Creating Goblin with sprite path:', './assets/Sprites/Goblin/gidle.png');
         super(id, health, './assets/Sprites/Goblin/gidle.png', game);
         this.attackSpriteSheet = './assets/Sprites/Goblin/gattack.png';
         this.hurtSpriteSheet = './assets/Sprites/Goblin/ghit.png';
@@ -31,10 +32,13 @@ export class Goblin extends Enemy {
         this.runSpriteSheet = './assets/Sprites/Goblin/grun.png';
         this.runFrames = 8;
         this.attackCount = 0; // Track number of attacks in current sequence
+        console.log('Goblin constructor completed');
     }
 
     getBackgroundSize() {
-        return `${this.frameWidth * this.scale * this.totalFrames}px ${this.frameHeight * this.scale}px`;
+        const size = `${this.frameWidth * this.scale * this.totalFrames}px ${this.frameHeight * this.scale}px`;
+        console.log('Goblin getBackgroundSize:', size);
+        return size;
     }
 
     getAttackBackgroundSize() {
@@ -356,6 +360,7 @@ export class Goblin extends Enemy {
     }
 
     createEnemyElement() {
+        console.log('Goblin createEnemyElement called');
         const enemyElement = document.createElement('div');
         enemyElement.className = 'enemy-character';
         enemyElement.dataset.enemyId = this.id;
@@ -402,6 +407,7 @@ export class Goblin extends Enemy {
         // Start animation
         this.startIdleAnimation();
         
+        console.log('Goblin element created:', enemyElement);
         return enemyElement;
     }
 

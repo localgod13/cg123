@@ -20,6 +20,7 @@ export class Enemy {
     }
 
     preloadSprite() {
+        console.log('Enemy preloadSprite called with:', this.spriteSheet);
         const img = new Image();
         img.onload = () => {
             console.log('Sprite sheet loaded successfully:', this.spriteSheet);
@@ -27,17 +28,19 @@ export class Enemy {
                 const spriteContainer = this.element.querySelector('.enemy-sprite');
                 if (spriteContainer) {
                     spriteContainer.style.backgroundImage = `url('${this.spriteSheet}')`;
+                    console.log('Set background image to:', this.spriteSheet);
                 }
             }
         };
-        img.onerror = () => {
-            console.error('Failed to load sprite sheet:', this.spriteSheet);
+        img.onerror = (error) => {
+            console.error('Failed to load sprite sheet:', this.spriteSheet, error);
         };
+        console.log('Setting img.src to:', this.spriteSheet);
         img.src = this.spriteSheet;
     }
 
     createEnemyElement() {
-        console.log('Creating enemy element for:', this.spriteSheet);
+        console.log('Enemy createEnemyElement called for sprite:', this.spriteSheet);
         const enemyElement = document.createElement('div');
         enemyElement.className = 'enemy-character';
         enemyElement.dataset.enemyId = this.id;
@@ -47,6 +50,7 @@ export class Enemy {
         spriteContainer.className = 'enemy-sprite';
         spriteContainer.style.width = `${this.frameWidth * this.scale}px`;
         spriteContainer.style.height = `${this.frameHeight * this.scale}px`;
+        console.log('Setting initial background image to:', this.spriteSheet);
         spriteContainer.style.backgroundImage = `url('${this.spriteSheet}')`;
         spriteContainer.style.backgroundSize = this.getBackgroundSize();
         spriteContainer.style.backgroundPosition = '0px 0px';
