@@ -10,8 +10,6 @@ import { Enemy } from './enemy.js';
 import { Executioner } from './executioner.js';
 import { FlyingDemon } from './FlyingDemon.js';
 import { Skeleton } from './skeleton.js';
-import { Goblin } from './goblin.js';
-import { GoblinKing } from './goblinKing.js';
 import { CardManager } from './cardManager.js';
 import { DebugMenu } from './debugMenu.js';
 import { Warrior } from './warrior.js';
