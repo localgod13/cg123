@@ -155,7 +155,7 @@ export function runLevel10(game) {
     backBox.addEventListener('mouseenter', () => {
         backBox.style.background = 'rgba(80, 255, 180, 0.35)';
         backBox.style.borderColor = '#fff';
-        backBox.style.cursor = 'url("/assets/Images/mageboots48.png") 24 40, pointer';
+        backBox.style.cursor = 'url("./assets/Images/mageboots48.png") 24 40, pointer';
     });
     backBox.addEventListener('mouseleave', () => {
         backBox.style.background = 'rgba(80, 200, 255, 0.25)';
