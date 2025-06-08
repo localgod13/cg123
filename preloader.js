@@ -87,7 +87,7 @@ export class Preloader {
                 '/assets/Images/mageboots48.png',
                 '/assets/Images/doorcursor.png',
                 './assets/Images/level23.png',
-                './assets/Images/level22.png'
+                '/assets/Images/level22.png'
             ],
             audio: [
                 './assets/Audio/tsmusic.mp3',
